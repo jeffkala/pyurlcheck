@@ -1,8 +1,8 @@
 import re
 from pathlib import Path
 
-class FindUrls:
 
+class FindUrls:
     def __init__(self, file=None):
         self.file = file
 
@@ -12,4 +12,3 @@ class FindUrls:
     def find_urls(self):
         data = self._read_in_file()
         return list(re.findall("https.*\w", data))
-

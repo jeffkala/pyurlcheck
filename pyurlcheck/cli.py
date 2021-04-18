@@ -1,4 +1,3 @@
-
 """Example cli using click."""
 import click
 
@@ -7,6 +6,7 @@ from pyurlcheck.check import CheckUrl
 from pyurlcheck.validate import ValidateUrl
 
 
+@click.command()
 @click.option(
     "-f",
     "--file",
@@ -21,13 +21,17 @@ from pyurlcheck.validate import ValidateUrl
     help="Directory, all files will be validated.",
     type=str,
 )
-def main(file:str, directory_path:str):
+def main(file: str, directory_path: str):
     """Entrypoint into CLI app."""
     url_list = FindUrls(file)
-    print(url_list)
-    for u in url_list:
-        if not CheckUrl(u):
-            print(ValidateUrl(u))
+    print(f"For {file} found the following urls:\n{url_list.find_urls()}")
+    for url in url_list.find_urls():
+        is_private = CheckUrl(url).is_private()
+        print(f"URL is {url}")
+        print(f"Is RFC1918: {is_private}")
+        is_valid = ValidateUrl(url).validate()
+        print(f"Is Valid: {is_valid}")
+
 
 if __name__ == "__main__":
     main()  # pylint: disable=no-value-for-parameter
