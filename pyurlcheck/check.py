@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 
 class CheckUrl:
     def __init__(self, url):
-        """Initializer."""
+        """Initialize URL Check."""
         self.url = url
 
     def _is_private(self, ipaddr):
