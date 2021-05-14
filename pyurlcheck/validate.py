@@ -4,6 +4,7 @@ import requests
 
 class ValidateUrl:
     """Validate a URL."""
+
     def __init__(self, url):
         """Initialize."""
         self.url = url
@@ -11,6 +12,6 @@ class ValidateUrl:
     def validate(self):
         """Validate a HTTP respone is not a failure."""
         resp = requests.get(self.url)
-        if not resp.raise_for_status():
-            return True
-        return False
+        if not resp.ok:
+            return False
+        return True
