@@ -19,13 +19,16 @@ def main(input_data):
         input_data (str) - Either filename or directory to search for URLs.
     """
     files_urls = FindUrls(input_data).find_urls()
-    print(files_urls)
-    # for url in url_list["urls"]:
-    #     is_private = CheckUrl(url).is_private()
-    #     print(f"URL is {url}")
-    #     print(f"Is RFC1918: {is_private}")
-    #     is_valid = ValidateUrl(url).validate()
-    #     print(f"Is Valid: {is_valid}")
+    for file_name, url_list in files_urls.items():
+        for line_num, urls in url_list.items():
+            for url in urls:
+                is_private = CheckUrl(url).is_private()
+                # print(f"URL is {url}")
+                # print(f"Is RFC1918: {is_private}")
+                is_valid = ValidateUrl(url).validate()
+                # print(f"Is Valid: {is_valid}")
+                if not is_valid:
+                    print(f"{file_name}:{line_num}\tURL Issue: {url}")
 
 
 if __name__ == "__main__":

@@ -16,7 +16,6 @@ class CheckUrl:
     def _split_url(self):
         """Take Full FQDN URL and split it into usable parts."""
         url_split = urlparse(self.url)
-        print(url_split.netloc)
         return url_split.netloc
 
     def _get_ip(self, url):
