@@ -21,25 +21,26 @@ class FindUrls:
         result = {}
         for file in file_list:
             result.update({f"{file}": None})
+        print(result)
         return result
+
+    def _parse_file(self, filepath):
+        file_data = self._read_in_file(filepath)
+        print(file_data)
+        url_and_lines = {}
+        for line_number, line_content in enumerate(file_data):
+            urls_found = re.findall(r"https.*\w", line_content)
+            if len(urls_found) > 0:
+                url_and_lines.update({line_number: urls_found})
+        return {filepath: url_and_lines}
 
     def find_urls(self):
         """Find all urls from all files."""
         if os.path.isfile(self.search):
-            file_data = self._read_in_file(self.search)
-            url_and_lines = {}
-            # TODO: Make this a function and reuse below.
-            for line_number, line_content in enumerate(file_data):
-                urls_found = re.findall(r"https.*\w", line_content)
-                if len(urls_found) > 0:
-                    url_and_lines.update({line_number: urls_found})
-            return {self.search: url_and_lines}
+            return self._parse_file(self.search)
         elif os.path.isdir(self.search):
             file_dict = self._populate_file_dict(os.listdir(self.search))
             for file in file_dict:
-                data = self._read_in_file(f"{self.search}{file}")
-                # TODO: Reuse function above once created.
-                file_dict[file] = list(re.findall(r"https.*\w", data))
-            return file_dict
+                return self._parse_file(f"{self.search}{file}")
         else:
             raise ValueError("No File or Directory Provided.")
