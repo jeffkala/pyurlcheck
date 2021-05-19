@@ -27,7 +27,7 @@ class FindUrls:
         file_data = self._read_in_file(filepath)
         url_and_lines = {}
         for line_number, line_content in enumerate(file_data):
-            urls_found = re.findall(r"(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-&?=%.]+", line_content)
+            urls_found = re.findall(r"https?:\/{2}\S+\b", line_content)
             if len(urls_found) > 0:
                 url_and_lines.update({line_number: urls_found})
         return {filepath: url_and_lines}

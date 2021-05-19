@@ -30,7 +30,7 @@ def main(input_data):
                 else:
                     is_valid = ValidateUrl(url).validate()
                 if not is_valid:
-                    print(f"{file_name}:{line_num}\tURL Issue: {url}")
+                    print(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
 
 
 if __name__ == "__main__":
