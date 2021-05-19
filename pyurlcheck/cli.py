@@ -22,11 +22,13 @@ def main(input_data):
     for file_name, url_list in files_urls.items():
         for line_num, urls in url_list.items():
             for url in urls:
-                is_private = CheckUrl(url).is_private()
+                url_details = CheckUrl(url).split_url()
+                if url_details.scheme == '':
+                    is_valid = ValidateUrl(url, need_scheme=True).validate()
                 # print(f"URL is {url}")
                 # print(f"Is RFC1918: {is_private}")
-                is_valid = ValidateUrl(url).validate()
-                # print(f"Is Valid: {is_valid}")
+                else:
+                    is_valid = ValidateUrl(url).validate()
                 if not is_valid:
                     print(f"{file_name}:{line_num}\tURL Issue: {url}")
 
