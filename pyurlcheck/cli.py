@@ -1,4 +1,6 @@
 """Example cli using click."""
+import sys
+
 import click
 
 from pyurlcheck.check import CheckUrl
@@ -18,6 +20,7 @@ def main(input_data):
     Args:
         input_data (str) - Either filename or directory to search for URLs.
     """
+    results = []
     files_urls = FindUrls(input_data).find_urls()
     for file_name, url_list in files_urls.items():
         for line_num, urls in url_list.items():
@@ -30,8 +33,12 @@ def main(input_data):
                 else:
                     is_valid = ValidateUrl(url).validate()
                 if not is_valid:
-                    print(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
-
+                    results.append(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
+    if len(results) > 0:
+        print('\n'.join(results))
+        sys.exit(len(results))
+    else:
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()  # pylint: disable=no-value-for-parameter
