@@ -2,6 +2,10 @@
 import requests
 
 
+# suppresses invalid cert warnings, depricated..., using verify=False
+requests.packages.urllib3.disable_warnings()
+
+
 class ValidateUrl:
     """Validate a URL."""
 
@@ -12,10 +16,11 @@ class ValidateUrl:
 
     def validate(self):
         """Validate a HTTP respone is not a failure."""
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
         if self.need_scheme:
-            resp = requests.get(f"http://{self.url}")
+            resp = requests.get(f"http://{self.url}", headers=headers, verify=False)
         else:
-            resp = requests.get(self.url)
+            resp = requests.get(self.url, headers=headers, verify=False)
         if not resp.ok:
             return False
         return True
