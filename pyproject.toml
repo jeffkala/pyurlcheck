@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Jeff Kala <jeff.l.kala@gmail.com>"]
 
+[tool.poetry.scripts]
+pyurlcheck = "pyurlcheck.cli:main"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "^7.1.2"
