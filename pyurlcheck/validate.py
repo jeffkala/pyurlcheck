@@ -2,7 +2,7 @@
 import requests
 
 
-# suppresses invalid cert warnings, depricated..., using verify=False
+# suppresses invalid cert warnings, deprecated..., using verify=False
 requests.packages.urllib3.disable_warnings()
 
 

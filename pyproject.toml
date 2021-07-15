@@ -1,8 +1,15 @@
 [tool.poetry]
 name = "pyurlcheck"
 version = "0.1.0"
-description = ""
+description = "Search docs and validate URLs found are working properly."
 authors = ["Jeff Kala <jeff.l.kala@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/jeffkala/pyurlcheck.git"
+repository = "https://github.com/jeffkala/pyurlcheck.git"
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
