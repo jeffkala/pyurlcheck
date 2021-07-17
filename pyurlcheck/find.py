@@ -1,5 +1,4 @@
 """Find all URLs in File or all files in a directory."""
-import enum
 import os
 import re
 from pathlib import Path

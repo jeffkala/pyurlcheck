@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 class CheckUrl:
     """Check URL class will be used for checks that need to be done on a URL."""
+
     def __init__(self, url):
         """Initialize URL Check."""
         self.url = url

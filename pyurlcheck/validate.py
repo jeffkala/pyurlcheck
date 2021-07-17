@@ -16,7 +16,9 @@ class ValidateUrl:
 
     def validate(self):
         """Validate a HTTP respone is not a failure."""
-        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
+        }
         if self.need_scheme:
             resp = requests.get(f"http://{self.url}", headers=headers, verify=False)
         else:
