@@ -20,14 +20,14 @@ click = "^7.1.2"
 requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
-black = "^20.8b1"
-flake8 = "^3.9.1"
-invoke = "^1.5.0"
-bandit = "^1.7.0"
-pydocstyle = "^6.0.0"
-pylint = "^2.7.4"
-yamllint = "^1.26.1"
+pytest = "*"
+black = "*"
+flake8 = "*"
+invoke = "*"
+bandit = "*"
+pydocstyle = "*"
+pylint = "*"
+yamllint = "*"
 
 [tool.black]
 line-length = 120
