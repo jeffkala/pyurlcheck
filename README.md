@@ -24,3 +24,9 @@ examples/example1.md:8  URL Issue: https://www.ansible.com/fake
 Alternatively,
 
 you can replace `python cli.py` with `pyurlcheck` on the command line.
+
+## Installation
+
+```
+pip install pyurlcheck
+```

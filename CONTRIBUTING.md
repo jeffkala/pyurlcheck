@@ -14,11 +14,12 @@ This leverages Python3.6 or later. All features will be tested against 3.6 - 3.9
 
 This project utilizes Semver versioning. As part of PRs the maintainers should leverage Poetry versioning to support the increase in version numbers. Reference [Poetry Version Docs](https://python-poetry.org/docs/cli/#version) for more information on automatically adjusting the version.  
 
+
 ## Installing dependencies for local development
 
 > These steps are also required for using the examples as provided in the repository for demonstration purposes.  
 
-This repository uses [poetry](https://python-poetry.org/) for dependency management.
+This repository uses [poetry](https://python-poetry.org/) for dependency management and [invoke](http://www.pyinvoke.org) for task execution. To see what invoke commands are available, issue the command `invoke --list`.   
 
 Follow these steps to set up your local development environment:
 
@@ -31,6 +32,24 @@ $ poetry shell
 # Install project dependencies as well as development dependencies
 $ poetry install
 ```
+
+When you install dependencies via Poetry you will get invoke as part of the process.
+
+## Running tests locally
+
+Docker images are available to provide a consistent development environment from one machine to another. The best practice recommendation is to execute two steps to test:
+
+1. Build Docker container image (`invoke build`)
+2. Execute test environment (`invoke tests`)
+   1. You can execute individual tests as well by looking at the tests with the command `invoke --list`
+
+### Build Docker container image
+
+Invoke tasks have a task to help build the containers. Executing the task with `invoke build` will build the Docker image for testing.
+
+### Execute tests
+
+The Invoke task to execute the tests are then `invoke tests`. This will execute all of the linting and pytest functions on the code.
 
 ## Testing
 
