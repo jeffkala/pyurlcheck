@@ -25,7 +25,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         # python -m pip install flake8 pytest
-        python -m pip install invoke poetry black
+        python -m pip install toml invoke poetry black
         invoke build --no-cache
         # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with black
