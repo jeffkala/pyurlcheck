@@ -31,3 +31,6 @@ jobs:
     - name: Test with black
       run: |
         invoke black
+    - name: Run all tests
+      run: |
+        invoke tests
