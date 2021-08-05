@@ -1,4 +1,5 @@
-from pyurlcheck.check import CheckUrl
+"""Tests for checks."""
+
 
 def test_simple_pass():
-    assert 1 == 1
+    assert 1 + 1 == 2

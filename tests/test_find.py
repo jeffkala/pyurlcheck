@@ -1,6 +1,8 @@
+"""Tests for Find"""
+
 import os
 import pytest
-from pyurlcheck.find import _read_in_file, _populate_file_dict, _parse_file, FindUrls
+from pyurlcheck.find import _read_in_file, _populate_file_dict, FindUrls
 
 
 def test_read_in_file():
@@ -20,7 +22,7 @@ def test_populate_file_dict():
 def test_populate_file_dict_bad_file():
     result = _populate_file_dict(os.listdir("./tests/examples/"))
     with pytest.raises(KeyError):
-        result["test-file.txt"]
+        result["test-file.txt"]  # pylint: disable=pointless-statement
 
 
 def test_parse_single_file():
@@ -66,11 +68,6 @@ def test_parse_files_in_directory():
     }
 
 
-def test_class_not_initialized():
-    with pytest.raises(TypeError):
-        FindUrls()
-
-
 def test_no_file_directory_provided():
     with pytest.raises(ValueError, match="No File or Directory Provided"):
-        FindUrls('t').find_urls()
+        FindUrls("t").find_urls()
