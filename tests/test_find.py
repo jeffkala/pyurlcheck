@@ -69,5 +69,5 @@ def test_parse_files_in_directory():
 
 
 def test_no_file_directory_provided():
-    with pytest.raises(ValueError, match="No File or Directory Provided"):
+    with pytest.raises(ValueError, match="No File or Directory Exists with name."):
         FindUrls("t").find_urls()
