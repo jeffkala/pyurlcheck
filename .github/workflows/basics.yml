@@ -24,13 +24,8 @@ jobs:
     - name: "Install dependencies"
       run: |
         python -m pip install --upgrade pip
-        # python -m pip install flake8 pytest
         python -m pip install toml invoke poetry black
         invoke build --nocache
-        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: "Test with black"
-      run: |
-        invoke black
-    - name: "Run all tests"
+    - name: "Run All Static Code Analysis and Tests"
       run: |
         invoke tests
