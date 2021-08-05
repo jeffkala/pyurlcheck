@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from pyurlcheck.constants import IGNORE_DIRS
 
+
 def _read_in_file(file_to_read):
     """Read contents of a file."""
     return Path(file_to_read).read_text().splitlines()
@@ -15,6 +16,7 @@ def _check_if_ignored(directory):
         if ignore in directory:
             return True
     return False
+
 
 def _new_populate_file_dict(file_walk):
     """Take all files from a directory and create a dictionary."""
@@ -58,7 +60,7 @@ class FindUrls:
             results.update(_parse_file(self.search))
             return results
         if os.path.isdir(self.search):
-            file_dict = _new_populate_file_dict(list(os.walk(self.search.rstrip('/'))))
+            file_dict = _new_populate_file_dict(list(os.walk(self.search.rstrip("/"))))
             for file in file_dict:
                 results.update(_parse_file(f"{file}"))
             return results

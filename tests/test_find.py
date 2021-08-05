@@ -2,7 +2,7 @@
 
 import os
 import pytest
-from pyurlcheck.find import _read_in_file, _populate_file_dict, FindUrls
+from pyurlcheck.find import _read_in_file, _new_populate_file_dict, FindUrls
 
 
 def test_read_in_file():
@@ -14,13 +14,19 @@ def test_read_in_file():
 
 
 def test_populate_file_dict():
-    result = _populate_file_dict(os.listdir("./tests/examples/"))
-    assert sorted(result.keys()) == ["example1.md", "example2.md", "example3.md", "example3.txt", "example4.rst"]
+    result = _new_populate_file_dict(list(os.walk("./tests/examples/".rstrip("/"))))
+    assert sorted(result.keys()) == [
+        "./tests/examples/example1.md",
+        "./tests/examples/example2.md",
+        "./tests/examples/example3.md",
+        "./tests/examples/example3.txt",
+        "./tests/examples/example4.rst",
+    ]
     assert len(result.keys()) == 5
 
 
 def test_populate_file_dict_bad_file():
-    result = _populate_file_dict(os.listdir("./tests/examples/"))
+    result = _new_populate_file_dict(list(os.walk("./tests/examples/".rstrip("/"))))
     with pytest.raises(KeyError):
         result["test-file.txt"]  # pylint: disable=pointless-statement
 
