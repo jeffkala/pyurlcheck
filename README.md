@@ -25,6 +25,18 @@ Alternatively,
 
 you can replace `python cli.py` with `pyurlcheck` on the command line.
 
+```
+▶ pyurlcheck pyurlcheck/examples/
+pyurlcheck/examples/example3.txt:4      URL Issue: https://www.ansible.com/jeff
+pyurlcheck/examples/example2.md:7       URL Issue: https://www.ansible.com/jeff
+pyurlcheck/examples/example3.md:3       URL Issue: https://www.ansible.com/jeff
+pyurlcheck/examples/example4.rst:22     URL Issue: http://google.com/france
+pyurlcheck/examples/example4.rst:23     URL Issue: http://google.com/japan
+pyurlcheck/examples/example1.md:9       URL Issue: https://www.ansible.com/jeff
+```
+
+File extensions are currently not checked; therefore all files in a directory that is passed in will be validated.
+
 ## Installation
 
 ```
