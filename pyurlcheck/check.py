@@ -30,7 +30,7 @@ def get_ip(domain):
     return result[0].address
 
 
-def is_private(ip):
+def is_private(ip_addr):
     """Take a URL manipulate it and check if it's Private RFC1918.
 
     Args:
@@ -39,4 +39,4 @@ def is_private(ip):
     Returns:
         Boolean: True/False whether address is RFC1918 space.
     """
-    return ipaddress.ip_address(ip).is_private
+    return ipaddress.ip_address(ip_addr).is_private
