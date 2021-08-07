@@ -3,7 +3,7 @@ import sys
 
 import click
 
-from pyurlcheck.check import CheckUrl
+from pyurlcheck.check import split_url, get_ip, is_private
 from pyurlcheck.find import FindUrls
 from pyurlcheck.validate import ValidateUrl
 
@@ -21,15 +21,15 @@ def main(input_data):
     for file_name, url_list in files_urls.items():
         for line_num, urls in url_list.items():
             for url in urls:
-                url_details = CheckUrl(url).split_url()
-                if url_details.scheme == "":
-                    is_valid = ValidateUrl(url, need_scheme=True).validate()
-                # print(f"URL is {url}")
-                # print(f"Is RFC1918: {is_private}")
-                else:
-                    is_valid = ValidateUrl(url).validate()
-                if not is_valid:
-                    results.append(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
+                url_details = split_url(url)
+                # RFC 1918 Check, if True don't validate.
+                if not is_private(get_ip(url_details.netloc)):
+                    if url_details.scheme == "":
+                        is_valid = ValidateUrl(url, need_scheme=True).validate()
+                    else:
+                        is_valid = ValidateUrl(url).validate()
+                    if not is_valid:
+                        results.append(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
     if len(results) > 0:
         print("\n".join(results))
         sys.exit(len(results))
