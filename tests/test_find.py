@@ -10,6 +10,7 @@ def test_read_in_file():
         "http://google.com",
         "https://youtube.com",
         "http://facebook.com https://www.ansible.com/jeff",
+        "www.espn.com",
     ]
 
 

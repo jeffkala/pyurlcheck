@@ -1,4 +1,5 @@
 """Check Whether URL is Public or Private."""
+import logging
 import ipaddress
 from urllib.parse import urlparse
 from dns import resolver
@@ -14,6 +15,7 @@ def split_url(url):
         ParseResult: Includes scheme, netloc, path, params, query, fragments.
     """
     url_split = urlparse(url)
+    logging.debug("URL Split: %s", url_split)
     return url_split
 
 
@@ -27,6 +29,7 @@ def get_ip(domain):
         str: IP Address
     """
     result = resolver.resolve(domain, "A")
+    logging.debug("DNS Resolver: %s", result[0])
     return result[0].address
 
 
