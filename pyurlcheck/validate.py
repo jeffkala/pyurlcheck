@@ -24,13 +24,13 @@ class ValidateUrl:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
         }
         if self.need_scheme:
-            logging.debug(f"No scheme was provided, using http. For {self.url}")
+            logging.debug("No scheme was provided, using http. For %s", self.url)
             resp = requests.get(f"http://{self.url}", headers=headers, verify=False)  # nosec
         else:
             resp = requests.get(self.url, headers=headers, verify=False)  # nosec
         if len(resp.history) > 0:
             has_redirect = redirect_mapper(resp)
-            logging.debug(f"Redirects: {has_redirect}")
+            logging.debug("Redirects: %s", has_redirect)
         else:
             has_redirect = []
         if not resp.ok:

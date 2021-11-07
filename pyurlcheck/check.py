@@ -15,7 +15,7 @@ def split_url(url):
         ParseResult: Includes scheme, netloc, path, params, query, fragments.
     """
     url_split = urlparse(url)
-    logging.debug(f"URL Split: {url_split}")
+    logging.debug("URL Split: %s", url_split)
     return url_split
 
 
@@ -29,7 +29,7 @@ def get_ip(domain):
         str: IP Address
     """
     result = resolver.resolve(domain, "A")
-    logging.debug(f"DNS Resolver: {result[0]}")
+    logging.debug("DNS Resolver: %s", result[0])
     return result[0].address
 
 

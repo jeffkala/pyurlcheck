@@ -26,7 +26,7 @@ def _new_populate_file_dict(file_walk):
         if not _check_if_ignored(pwd):
             for file in filename_list:
                 result.update({f"{pwd}/{file}": None})
-    logging.debug(f"Populate File Dict: {result}")
+    logging.debug("Populate File Dict: %s", result)
     return result
 
 
@@ -45,7 +45,7 @@ def _parse_file(filepath):
         urls_found = re.findall(r"https?:\/{2}\S+\b", line_content)
         if len(urls_found) > 0:
             url_and_lines.update({line_number: urls_found})
-    logging.debug(f"URL and Lines: {url_and_lines}")
+    logging.debug("URL and Lines: %s", url_and_lines)
     return {filepath: url_and_lines}
 
 
@@ -66,6 +66,6 @@ class FindUrls:
             file_dict = _new_populate_file_dict(list(os.walk(self.search.rstrip("/"))))
             for file in file_dict:
                 results.update(_parse_file(f"{file}"))
-            logging.debug(f"Find URLs: {results}")
+            logging.debug("Find URLs: %s", results)
             return results
         raise ValueError("No File or Directory Exists with name.")
