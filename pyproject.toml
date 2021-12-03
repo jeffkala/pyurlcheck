@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyurlcheck"
-version = "0.1.1"
+version = "0.1.2"
 description = "Search docs and validate URLs found are working properly."
 authors = ["Jeff Kala <jeff.l.kala@gmail.com>"]
 readme = "README.md"
