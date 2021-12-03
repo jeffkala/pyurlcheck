@@ -1,7 +1,9 @@
 """Find all URLs in File or all files in a directory."""
+import logging
 import os
 import re
 from pathlib import Path
+from pyurlcheck.constants import IGNORE_DIRS
 
 
 def _read_in_file(file_to_read):
@@ -9,11 +11,22 @@ def _read_in_file(file_to_read):
     return Path(file_to_read).read_text().splitlines()
 
 
-def _populate_file_dict(file_list):
+def _check_if_ignored(directory):
+    """Quick check to see if the directory should be ignored."""
+    for ignore in IGNORE_DIRS:
+        if ignore in directory:
+            return True
+    return False
+
+
+def _new_populate_file_dict(file_walk):
     """Take all files from a directory and create a dictionary."""
     result = {}
-    for file in file_list:
-        result.update({f"{file}": None})
+    for pwd, _, filename_list in file_walk:
+        if not _check_if_ignored(pwd):
+            for file in filename_list:
+                result.update({f"{pwd}/{file}": None})
+    logging.debug("Populate File Dict: %s", result)
     return result
 
 
@@ -32,6 +45,7 @@ def _parse_file(filepath):
         urls_found = re.findall(r"https?:\/{2}\S+\b", line_content)
         if len(urls_found) > 0:
             url_and_lines.update({line_number: urls_found})
+    logging.debug("URL and Lines: %s", url_and_lines)
     return {filepath: url_and_lines}
 
 
@@ -49,8 +63,9 @@ class FindUrls:
             results.update(_parse_file(self.search))
             return results
         if os.path.isdir(self.search):
-            file_dict = _populate_file_dict(os.listdir(self.search))
+            file_dict = _new_populate_file_dict(list(os.walk(self.search.rstrip("/"))))
             for file in file_dict:
-                results.update(_parse_file(f"{self.search}{file}"))
+                results.update(_parse_file(f"{file}"))
+            logging.debug("Find URLs: %s", results)
             return results
-        raise ValueError("No File or Directory Provided.")
+        raise ValueError("No File or Directory Exists with name.")
