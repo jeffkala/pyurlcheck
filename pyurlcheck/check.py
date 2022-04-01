@@ -1,7 +1,8 @@
 """Check Whether URL is Public or Private."""
-import logging
 import ipaddress
+import logging
 from urllib.parse import urlparse
+
 from dns import resolver
 
 
@@ -28,9 +29,13 @@ def get_ip(domain):
     Returns:
         str: IP Address
     """
-    result = resolver.resolve(domain, "A")
-    logging.debug("DNS Resolver: %s", result[0])
-    return result[0].address
+    try:
+        result = resolver.resolve(domain, "A")
+        logging.debug("DNS Resolver: %s", result[0])
+        return result[0].address
+    except Exception as err:
+        logging.debug("There was a DNS resolver error on %s.  Error is %s", domain, err)
+        return False
 
 
 def is_private(ip_addr):

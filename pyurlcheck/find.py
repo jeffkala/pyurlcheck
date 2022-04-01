@@ -2,13 +2,19 @@
 import logging
 import os
 import re
+from distutils.log import debug
 from pathlib import Path
+
 from pyurlcheck.constants import IGNORE_DIRS
 
 
 def _read_in_file(file_to_read):
     """Read contents of a file."""
-    return Path(file_to_read).read_text().splitlines()
+    try:
+        return Path(file_to_read).read_text().splitlines()
+    except UnicodeDecodeError as err:
+        logging.debug("File %s %s.", file_to_read, err)
+        return []
 
 
 def _check_if_ignored(directory):

@@ -4,10 +4,9 @@ import sys
 
 import click
 
-from pyurlcheck.check import split_url, get_ip, is_private
+from pyurlcheck.check import get_ip, is_private, split_url
 from pyurlcheck.find import FindUrls
 from pyurlcheck.validate import ValidateUrl
-
 
 LOGGER = logging.getLogger(__name__)
 
@@ -28,6 +27,7 @@ def main(input_data, log_level):
     for file_name, url_list in files_urls.items():
         for line_num, urls in url_list.items():
             for url in urls:
+                # Consider doing a set() to validate not doing duplicate calls.
                 url_details = split_url(url)
                 # RFC 1918 Check, if True don't validate.
                 if not is_private(get_ip(url_details.netloc)):
@@ -38,10 +38,10 @@ def main(input_data, log_level):
                     if not is_valid:
                         results.append(f"{file_name}:{line_num + 1}\tURL Issue: {url}")
                     if has_redirects:
-                        LOGGER.info(
-                            "Redirect_Warning: %s had redirects while executing. Redirects are ' => '.join(%s)!",
+                        LOGGER.debug(
+                            "Redirect_Warning: %s had redirects while executing. Redirects are %s!",
                             url,
-                            has_redirects,
+                            ' => '.join(has_redirects),
                         )
     if len(results) > 0:
         LOGGER.info("\n".join(results))

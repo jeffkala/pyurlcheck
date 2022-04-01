@@ -5,7 +5,6 @@ import requests
 
 from pyurlcheck.utils import redirect_mapper
 
-
 # suppresses invalid cert warnings, deprecated..., using verify=False
 requests.packages.urllib3.disable_warnings()  # pylint:disable=no-member
 
@@ -23,6 +22,11 @@ class ValidateUrl:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
         }
+        # Convert this to a config option to pass in. (append to this list)
+        if self.url in ["localhost", "127.0"]:
+            logging.debug("Local development URLs ignored for %s", self.url)
+            pass
+        # Testing using `requests.head` has resulted in unsatisfactory results.
         if self.need_scheme:
             logging.debug("No scheme was provided, using http. For %s", self.url)
             resp = requests.get(f"http://{self.url}", headers=headers, verify=False)  # nosec
